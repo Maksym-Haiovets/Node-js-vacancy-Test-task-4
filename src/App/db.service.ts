@@ -6,7 +6,7 @@ export class dbService {
     constructor(){}
 
     async CreateCashire(cashire: ICashier){
-        const createdCashire = await db.query(`INSERT INTO formercashires (
+        const createdCashire = await db.query(`INSERT INTO currentcashires (
                 Fname,
                 Lname,
                 Age,
@@ -38,12 +38,12 @@ export class dbService {
         
     async getTargetCashiers1(){
         const allCashires = await db.query(`
-            select * from formercashires 
+            SELECT * FROM formercashires 
                 WHERE city = 'Lviv' 
                 AND yearsofexperience >= 5 
                 AND (previous_job = 'Arsen' OR previous_job = 'Silpo')
-            union all
-            select * from currentcashires 
+            UNION ALL
+            SELECT * FROM currentcashires 
                 WHERE city = 'Lviv' 
                 AND yearsofexperience >= 5 
                 AND (previous_job = 'Arsen' OR previous_job = 'Silpo')
@@ -52,8 +52,20 @@ export class dbService {
     }
 
     async getTargetCashiers2(){
-
+        const allCashires = await db.query(`
+            SELECT * FROM currentcashires
+                WHERE MOD(numberofcashregister,2) = 1
+                AND shopaddress = 'Shevchenko 100'
+                AND worksinshifts LIKE '%monday%'
+                AND worksinshifts LIKE '%23:00 - 07:00%'
+        `)
+        return allCashires.rows
     }
-
-    // getAllCashiers
+    async getAllCashiers (){
+        const allCashires = await db.query(`
+            SELECT * FROM formercashires
+            UNION ALL  
+            SELECT * FROM currentcashires 
+        `)
+    }
 }

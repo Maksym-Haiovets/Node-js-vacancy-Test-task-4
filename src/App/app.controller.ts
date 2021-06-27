@@ -11,14 +11,21 @@ export class AppController {
     return this.DBService.CreateCashire(cashire);
   }
 
-  @Get('get')
+  @Get('get-target-one')
   @HttpCode(HttpStatus.OK)
   getTargetCashiers1(){
     return this.DBService.getTargetCashiers1()
   }
-  // getAllCashiers
-  // getTargetCashiers1
-  // getTargetCashiers2
-  
 
+  @Get('get-target-two')
+  @HttpCode(HttpStatus.OK)
+  getTargetCashiers2(){
+    return this.DBService.getTargetCashiers2()
+  }
+
+  @Get()
+  @HttpCode(HttpStatus.OK)
+  getAllCashiers(){
+    return this.DBService.getAllCashiers()
+  }
 }
