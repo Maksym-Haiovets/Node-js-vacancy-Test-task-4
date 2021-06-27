@@ -1,5 +1,5 @@
 import { Body, Controller, Get, HttpCode, HttpStatus, Post } from '@nestjs/common';
-import { dbService } from '../db/db.service'
+import { dbService } from './db.service'
 
 @Controller('cashires')
 export class AppController {
