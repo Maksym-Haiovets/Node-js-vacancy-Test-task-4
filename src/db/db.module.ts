@@ -1,14 +1,13 @@
 import { Module } from '@nestjs/common';
-import { MongooseModule } from '@nestjs/mongoose';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { dbService } from './db.service';
-import { AllCashires, AllCashiresSchema} from './Schemes/AllCashiersSchema'
-import { CurrentCashires, CurrentCashiresSchema} from './Schemes/CurrentCashiersSchema'
+import { AllCashires } from './Entities/AllCashiersEntity';
+import { CurrentCashires } from './Entities/CurrentCashiresEntity'
 
 @Module({
   imports: [
-    MongooseModule.forFeature([{ name: CurrentCashires.name, schema: CurrentCashiresSchema }]),
-    MongooseModule.forFeature([{ name: AllCashires.name, schema: AllCashiresSchema }])
+    TypeOrmModule.forFeature([AllCashires, CurrentCashires])
   ],
   controllers: [],
   providers: [dbService],

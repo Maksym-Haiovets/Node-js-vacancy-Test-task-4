@@ -16,7 +16,7 @@ interface ICashier {
     Lname: String,
     Age: Number,
     sex: Sex,
-    yearsOfExperience: String,
+    yearsOfExperience: Number,
     Previous_job: String,
     worksInShifts: String,
     ShopAddress: String,
@@ -41,3 +41,18 @@ enum NumberOFCashRegister {
 interface CashRegister {// enam
     NumberOFCashRegister: NumberOFCashRegister
 }
+
+/*
+{
+    "Fname": "luba",
+    "Lname": "Hayovets",
+    "Age": "20",
+    "sex": "Woman",
+    "yearsOfExperienc": "5",
+    "Previous_job": "Arsen",
+    "worksInShifts": "undefined",
+    "ShopAddress": "Shevchenka 43",
+    "NumberOFCashRegister": "8",
+    "City": "Lviv"
+}
+*/

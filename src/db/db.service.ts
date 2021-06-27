@@ -1,21 +1,27 @@
 import { Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
-import { CurrentCashires, CurrentCashiresDocument} from './Schemes/CurrentCashiersSchema'
-import { AllCashires, AllCashiresDocument} from './Schemes/AllCashiersSchema'
+import { AllCashires } from './Entities/AllCashiersEntity'
+import { CurrentCashires } from './Entities/CurrentCashiresEntity'
 
 @Injectable()
 export class dbService {
     constructor(
-        @InjectModel(CurrentCashires.name) private currentCashiresModel: Model<CurrentCashiresDocument>,
-        @InjectModel(AllCashires.name) private allCashiresModel: Model<AllCashiresDocument>
+        @InjectRepository(AllCashires)
+        private allCashiresRepository: Repository<AllCashires>,
+        @InjectRepository(CurrentCashires)
+        private currentCashiresRepository: Repository<CurrentCashires>,
     ){}
-    
-    // getAllCashiers
-    // getTargetCashiers1
-    // getTargetCashiers2
-    getHello(): string {
-        return 'Hello World!';
+
+    async CreateCashire(cashire: ICashier){
+        return 
     }
+        
+    async getTargetCashiers1(){
+        return 
+    }
+
+    // getTargetCashiers2
+    // getAllCashiers
 }
