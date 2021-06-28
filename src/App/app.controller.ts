@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpCode, HttpStatus, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, Put } from '@nestjs/common';
 import { dbService } from './db.service'
 
 @Controller('cashires')
@@ -11,6 +11,26 @@ export class AppController {
     return this.DBService.CreateCashire(cashire);
   }
 
+  @Delete('delete/:id')
+  @HttpCode(HttpStatus.OK)
+  removeChasire(@Param('id') id: number){
+    this.DBService.DeleteCashire(id);
+  }
+
+  @Put('update/:id')
+  @HttpCode(HttpStatus.OK)
+  UpdateCashire(@Param('id') id: number, @Body() body){
+    const table = body.table;
+    const cashire: ICashier = body.cashire;
+    return this.DBService.UpdateCashire(id, table, cashire)
+  }
+
+  @Get('get/:table_name/:id')
+  @HttpCode(HttpStatus.OK)
+  GetCashire(@Param('id') id: number, @Param('table_name') table: string){
+    return this.DBService.GetCashire(id, table);
+  }
+  ////
   @Get('get-target-one')
   @HttpCode(HttpStatus.OK)
   getTargetCashiers1(){
@@ -23,7 +43,7 @@ export class AppController {
     return this.DBService.getTargetCashiers2()
   }
 
-  @Get()
+  @Get('get-all-cashires')
   @HttpCode(HttpStatus.OK)
   getAllCashiers(){
     return this.DBService.getAllCashiers()

@@ -1,41 +1,28 @@
 import { Injectable } from '@nestjs/common';
+import { DBHelperService } from './db.helper'
 const db = require('../db/db')
 
 @Injectable()
 export class dbService {
-    constructor(){}
+    constructor(private readonly dbHelperService: DBHelperService){}
 
     async CreateCashire(cashire: ICashier){
-        const createdCashire = await db.query(`INSERT INTO currentcashires (
-                Fname,
-                Lname,
-                Age,
-                sex,
-                yearsOfExperience,
-                Previous_job,
-                worksInShifts,
-                ShopAddress,
-                NumberOFCashRegister,
-                City
-            )
-            values
-            ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) 
-            RETURNING *`,
-            [ 
-                cashire.Fname,
-                cashire.Lname,
-                cashire.Age,
-                cashire.sex,
-                cashire.yearsOfExperience,
-                cashire.Previous_job,
-                cashire.worksInShifts,
-                cashire.ShopAddress,
-                cashire.NumberOFCashRegister,
-                cashire.City
-            ])
-            return createdCashire.rows[0]
+        return this.dbHelperService.CreateCashire(cashire, 'currentcashires');
     }
-        
+      
+    async DeleteCashire(id: number){
+        return this.dbHelperService.DeleteCashire(id);
+    }
+
+    async UpdateCashire(id: number, table: string, cashire: ICashier){
+        return this.dbHelperService.UpdateCashire(id, table, cashire);
+    }
+
+    async GetCashire(id: number, table: string){
+        return this.dbHelperService.GetCashire(id, table)
+    }
+
+    ///////////
     async getTargetCashiers1(){
         const allCashires = await db.query(`
             SELECT * FROM formercashires 
@@ -61,11 +48,13 @@ export class dbService {
         `)
         return allCashires.rows
     }
+
     async getAllCashiers (){
         const allCashires = await db.query(`
             SELECT * FROM formercashires
             UNION ALL  
             SELECT * FROM currentcashires 
         `)
+        return allCashires.rows
     }
 }

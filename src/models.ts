@@ -1,29 +1,7 @@
-// TS types, interfaces, enums etc
-// Describe TS interface Shop, Cashier, CashRegister.
-
-interface IShop {
-    Name: String,
-    city: String,
-    Address: String
-}
-
 enum Sex {
     Men = 'Men',
     Woman = 'Woman'
 }
-interface ICashier {
-    Fname: String,
-    Lname: String,
-    Age: Number,
-    sex: Sex,
-    yearsOfExperience: Number,
-    Previous_job: String,
-    worksInShifts: String,
-    ShopAddress: String,
-    NumberOFCashRegister: NumberOFCashRegister,
-    City: String,
-}
-
 enum NumberOFCashRegister {
     CashRegister_1 = 1,
     CashRegister_2 = 2,
@@ -38,21 +16,26 @@ enum NumberOFCashRegister {
     CashRegister_11 = 11,
     CashRegister_12 = 12,
 }
-interface CashRegister {// enam
+////
+interface IShop {
+    Name: String,
+    city: String,
+    Address: String
+}
+
+interface CashRegister {
     NumberOFCashRegister: NumberOFCashRegister
 }
 
-/*
-{
-    "Fname": "luba",
-    "Lname": "Hayovets",
-    "Age": "20",
-    "sex": "Woman",
-    "yearsOfExperienc": "5",
-    "Previous_job": "Arsen",
-    "worksInShifts": "undefined",
-    "ShopAddress": "Shevchenka 43",
-    "NumberOFCashRegister": "8",
-    "City": "Lviv"
+interface ICashier {
+    Fname: string,
+    Lname: String,
+    Age: Number,
+    sex: Sex,
+    yearsOfExperience: Number,
+    Previous_job: String,
+    worksInShifts: String,
+    ShopAddress: String,
+    NumberOFCashRegister: NumberOFCashRegister,
+    City: String,
 }
-*/
