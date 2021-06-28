@@ -6,24 +6,24 @@ const db = require('../db/db')
 export class dbService {
     constructor(private readonly dbHelperService: DBHelperService){}
 
-    async CreateCashire(cashire: ICashier){
+    async CreateCashire(cashire: ICashier): Promise<ICashier>{
         return this.dbHelperService.CreateCashire(cashire, 'currentcashires');
     }
       
-    async DeleteCashire(id: number){
+    async DeleteCashire(id: number): Promise<void>{
         return this.dbHelperService.DeleteCashire(id);
     }
 
-    async UpdateCashire(id: number, table: string, cashire: ICashier){
+    async UpdateCashire(id: number, table: string, cashire: ICashier): Promise<ICashier>{
         return this.dbHelperService.UpdateCashire(id, table, cashire);
     }
 
-    async GetCashire(id: number, table: string){
-        return this.dbHelperService.GetCashire(id, table)
+    async GetCashireByID(id: number, table: string): Promise<ICashier>{
+        return this.dbHelperService.GetCashireByID(id, table)
     }
 
     ///////////
-    async getTargetCashiers1(){
+    async getTargetCashiers1(): Promise<ICashier[]>{
         const allCashires = await db.query(`
             SELECT * FROM formercashires 
                 WHERE city = 'Lviv' 
@@ -38,7 +38,7 @@ export class dbService {
         return allCashires.rows
     }
 
-    async getTargetCashiers2(){
+    async getTargetCashiers2(): Promise<ICashier[]>{
         const allCashires = await db.query(`
             SELECT * FROM currentcashires
                 WHERE MOD(numberofcashregister,2) = 1
@@ -49,12 +49,16 @@ export class dbService {
         return allCashires.rows
     }
 
-    async getAllCashiers (){
+    async getAllCashiers (): Promise<ICashier[]>{
         const allCashires = await db.query(`
             SELECT * FROM formercashires
             UNION ALL  
             SELECT * FROM currentcashires 
         `)
         return allCashires.rows
+    }
+
+    async GetCashire(table: string, age: number, gender: Gender, yearsOfExperience: number): Promise<ICashier>{
+        return this.dbHelperService.GetCashire(table, age, gender, yearsOfExperience);
     }
 }

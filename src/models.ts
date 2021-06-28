@@ -1,4 +1,4 @@
-enum Sex {
+enum Gender {
     Men = 'Men',
     Woman = 'Woman'
 }
@@ -20,7 +20,7 @@ enum NumberOFCashRegister {
 interface IShop {
     Name: String,
     city: String,
-    Address: String
+    ShopAddress: String
 }
 
 interface CashRegister {
@@ -28,14 +28,14 @@ interface CashRegister {
 }
 
 interface ICashier {
-    Fname: string,
-    Lname: String,
-    Age: Number,
-    sex: Sex,
-    yearsOfExperience: Number,
-    Previous_job: String,
-    worksInShifts: String,
-    ShopAddress: String,
-    NumberOFCashRegister: NumberOFCashRegister,
-    City: String,
+    Fname?: string,
+    Lname?: String,
+    Age?: Number,
+    gender?: Gender,
+    yearsOfExperience?: Number,
+    Previous_job?: String,
+    worksInShifts?: String,
+    ShopAddress?: String,
+    NumberOFCashRegister?: NumberOFCashRegister,
+    City?: String,
 }
